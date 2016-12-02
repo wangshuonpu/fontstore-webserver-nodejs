@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/wangshuonpu/fontstore-webserver-nodejs/issues"
   },
-  "homepage": "https://github.com/wangshuonpu/fontstore-webserver-nodejs#readme"
+  "homepage": "https://github.com/wangshuonpu/fontstore-webserver-nodejs#readme",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }
