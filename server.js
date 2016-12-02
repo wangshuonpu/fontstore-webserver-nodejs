@@ -3,7 +3,6 @@
  * @author Varsha
  */
 
-var PORT = 8848;
 var http = require('http');
 var path = require('path');
 var url = require('url');
@@ -15,7 +14,7 @@ function getFontPath(req) {
     var pathname = urlData.pathname;
     var dirPath = path.dirname(pathname).slice(1);
 
-    return path.resolve(__dirname, dirPath);
+    return path.resolve(process.cwd(), dirPath);
 }
 
 function getFontData(data) {
@@ -47,20 +46,25 @@ function writeFontFile(data, filePath, encode) {
 
 }
 
-var server = http.createServer(function (req, res) {
+exports.start = function (options) {
+    var port = options.port;
 
-    var fontPath = getFontPath(req);
+    var server = http.createServer(function (req, res) {
 
-    var data = [];
-    req.on('data',function(reqData){
-        data.push(reqData);
-    });
+        var fontPath = getFontPath(req);
 
-    req.on('end', function () {
-        var fontData = getFontData(data);
-        writeFiles(fontData, fontPath);
-    });
+        var data = [];
+        req.on('data',function(reqData){
+            data.push(reqData);
+        });
 
-}).listen(PORT);
+        req.on('end', function () {
+            var fontData = getFontData(data);
+            writeFiles(fontData, fontPath);
+        });
 
-console.log('FontStore WebServer Listened at port:', PORT);
+    }).listen(port);
+
+    console.log('\nFontStore WebServer Listened at port:', port);
+
+}
