@@ -8,6 +8,10 @@ program
     program.on('--help', function(){
         console.log('  Examples:');
         console.log('');
+        console.log('    # 默认端口号 8848');
+        console.log('    $ fontstore-webserver');
+        console.log('');
+        console.log('    # 指定端口号');
         console.log('    $ fontstore-webserver -p 8080');
         console.log('');
     });
