@@ -1,6 +1,6 @@
 {
   "name": "fontstore",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "FontStore 字体同步工具",
   "main": "server.js",
   "bin": "bin/fontstore",
