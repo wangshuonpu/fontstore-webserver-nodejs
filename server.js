@@ -12,9 +12,12 @@ var querystring = require('querystring');
 function getFontPath(req) {
     var urlData = url.parse(req.url, true);
     var pathname = urlData.pathname;
-    var dirPath = path.dirname(pathname).slice(1);
 
-    return path.resolve(process.cwd(), dirPath);
+    if (!pathname.match(/\.(?:font|ttf|woff2?|eot|svg)$/g)) {
+        pathname += '/bdfont.font';
+    }
+
+    return path.resolve(process.cwd(), path.dirname(pathname).slice(1));
 }
 
 function getFontData(data) {
@@ -37,11 +40,11 @@ function writeFiles(fontData, fontPath) {
 function writeFontFile(data, filePath, encode) {
     try {
         fs.writeFileSync(filePath, new Buffer(data, 'base64'), encode);
-        console.log('>> File: ' + filePath + ' sync success!');
+        console.log('>> File: \033[0;32m' + filePath + '\033[0m sync success!');
     }
     catch (exp) {
-        console.log('>> Error syncing font data to: ' + filePath
-            + '\n' + exp.message);
+        console.log('>> \033[0;31mError syncing font data to: ' + filePath
+            + '\033[0m\n' + exp.message);
     }
 
 }
@@ -65,7 +68,7 @@ exports.start = function (options) {
 
     }).listen(port);
 
-    console.log('\nFontStore WebServer Listened at port:', port);
+    console.log('FontStore WebServer Listened at \033[0;32m http://127.0.0.1:' + port, '\033[0m');
 
 }
 

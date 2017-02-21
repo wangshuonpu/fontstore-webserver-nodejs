@@ -2,23 +2,20 @@
 var program = require('commander');
 
 program
-    .version('0.0.1')
-    .option('-p, --port <port>', '端口号');
-
-    program.on('--help', function(){
+    .option('-p, --port <port>', '端口号')
+    .on('--help', function(){
         console.log('  Examples:');
         console.log('');
-        console.log('    # 默认端口号 8848');
-        console.log('    $ fontstore-webserver');
+        console.log('    # 默认端口号 8861');
+        console.log('    $ fontstore');
         console.log('');
         console.log('    # 指定端口号');
-        console.log('    $ fontstore-webserver -p 8080');
+        console.log('    $ fontstore -p 8861');
         console.log('');
     });
 
 program.parse(process.argv);
 
-var port = program.port || 8848;
 require('../server').start({
-    port: port
+    port: program.port || 8861
 });
